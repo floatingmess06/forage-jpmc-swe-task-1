@@ -55,12 +55,63 @@ class ClientTest(unittest.TestCase):
 
     """ ------------ Add more unit tests ------------ """
 
-    def test_getRatio_calculatePrice(self):
+    def test_getRatio_calculateRatioPriceaGreaterThanPriceb(self):
         prices = [
             {"price_a": 10, "price_b": 5, "expected_ratio": 2.0},
-            {"price_a": 5, "price_b": 10, "expected_ratio": 0.5},
-            {"price_a": 0, "price_b": 5, "expected_ratio": 0},
+            {"price_a": 20, "price_b": 5, "expected_ratio": 4.0},
+        ]
+        """ ------------ Add the assertion below ------------ """
+        for price_tuple in prices:
+            calculated_ratio = getRatio(price_tuple["price_a"], price_tuple["price_b"])
+            self.assertEqual(
+                calculated_ratio,
+                price_tuple["expected_ratio"],
+                "Price calculation incorrect.",
+            )
+
+    def test_getRatio_calculateRatioPricebGreaterThanPricea(self):
+        prices = [
+            {"price_a": 5, "price_b": 10, "expected_ratio": .50},
+            {"price_a": 5, "price_b": 20, "expected_ratio": 0.25},
+        ]
+        """ ------------ Add the assertion below ------------ """
+        for price_tuple in prices:
+            calculated_ratio = getRatio(price_tuple["price_a"], price_tuple["price_b"])
+            self.assertEqual(
+                calculated_ratio,
+                price_tuple["expected_ratio"],
+                "Price calculation incorrect.",
+            )
+
+    def test_getRatio_calculateRatioPricebZero(self):
+        prices = [
             {"price_a": 5, "price_b": 0, "expected_ratio": None},
+            {"price_a": 10, "price_b": 0, "expected_ratio": None},
+        ]
+        """ ------------ Add the assertion below ------------ """
+        for price_tuple in prices:
+            calculated_ratio = getRatio(price_tuple["price_a"], price_tuple["price_b"])
+            self.assertEqual(
+                calculated_ratio,
+                price_tuple["expected_ratio"],
+                "Price calculation incorrect.",
+            )
+
+    def test_getRatio_calculateRatioPriceaZero(self):
+        prices = [
+            {"price_a": 0, "price_b": 5, "expected_ratio": 0},
+            {"price_a": 0, "price_b": 30, "expected_ratio": 0},
+        ]
+        """ ------------ Add the assertion below ------------ """
+        for price_tuple in prices:
+            calculated_ratio = getRatio(price_tuple["price_a"], price_tuple["price_b"])
+            self.assertEqual(
+                calculated_ratio,
+                price_tuple["expected_ratio"],
+                "Price calculation incorrect.",
+            )
+    def test_getRatio_calculateRatioBothZero(self):
+        prices = [
             {"price_a": 0, "price_b": 0, "expected_ratio": None},
         ]
         """ ------------ Add the assertion below ------------ """
@@ -71,6 +122,7 @@ class ClientTest(unittest.TestCase):
                 price_tuple["expected_ratio"],
                 "Price calculation incorrect.",
             )
+
 
 
 if __name__ == "__main__":
